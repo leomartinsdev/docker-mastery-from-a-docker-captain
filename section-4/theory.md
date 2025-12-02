@@ -15,8 +15,10 @@ docker container run --publish 80:80 nginx
 ```shell
 -d - means "detach", so the container runs on the background.
 
-docker container ls -> list running containers
-docker container ls -a -> run all containers (running and stopped)
+docker container ls -> lists running containers
+docker ps -> lists runing containers
+docker container ls -a -> lists all containers (running and stopped)
+docker container ls -a -> lists all containers (running and stopped)
 
 docker container stop <container_id> -> stops the container
 
@@ -26,4 +28,19 @@ docker container logs <container_name> -> logs for the specified container.
 
 docker container rm <container_id_1> <container_id_n> -> deletes the specified containers
 docker container rm -f <container_id> -> forces the deletion of the container
+```
+
+
+#### Assignment: Manage Multiple Containers
+```shell
+docker container run -d --publish 8080:80 httpd
+docker container run -d --publish 80:80 nginx
+docker container run -d --publish 3306:3306 --env MYSQL_RANDOM_ROOT_PASSWORD=yes mysql
+docker container ls
+docker container logs 28fec
+docker stop 28fec b567 a931
+docker rm 28fec b567 a931
+docker container ls -a
+
+generated password for mysql = dQkCAxRjZVI52CK3iOhOYrnig3+56pU9
 ```
