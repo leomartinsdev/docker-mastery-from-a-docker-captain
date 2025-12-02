@@ -15,10 +15,10 @@ docker container run --publish 80:80 nginx
 ```shell
 -d - means "detach", so the container runs on the background.
 
-docker container ls -> lists running containers
-docker ps -> lists runing containers
-docker container ls -a -> lists all containers (running and stopped)
-docker container ls -a -> lists all containers (running and stopped)
+docker container ls     -> lists running containers
+docker ps               -> lists runing containers
+docker container ps -a  -> lists all containers (running and stopped)
+docker container ls -a  -> lists all containers (running and stopped)
 
 docker container stop <container_id> -> stops the container
 
@@ -43,4 +43,11 @@ docker rm 28fec b567 a931
 docker container ls -a
 
 generated password for mysql = dQkCAxRjZVI52CK3iOhOYrnig3+56pU9
+```
+
+#### 24 - Whats going on in Containers: CLI Process Monitoring
+```shell
+docker container top        -> process list in one container
+docker container inspect    -> details of one container config
+docker container stats      -> performance stats for all containers
 ```
