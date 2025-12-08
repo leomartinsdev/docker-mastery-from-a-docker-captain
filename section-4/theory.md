@@ -65,3 +65,24 @@ ex: docker container exec -it mysql bash
 exit -> exists the shell and stops the container
 ```
 
+#### 27 - Docker Networks: Concepts for Private and Public Comms in Containers
+The ```-p``` exposes the port on your machine.
+For local dev/testing, networks usually "just work".
+    - "Batteries Included, but removable" -> defauls work well in many cases, but easy to swap out parts to customize it.
+Each container connected to a private virtual network "bridge".
+Each virtual network routes through NAT firewall on host IP.
+All containers on a virtual network can talk to eachother without -p.
+Best practice is to create a new virtual network for each app:
+    - network "my_web_app" for mysql and php/apache containers
+    - network "my_api" for mongo and nodejs containers
+
+You can have something like this:
+    - docker container port <container> 80:80
+    - docker container port <container> 8080:80
+    - That is because the left side is the host and the right one is the container. You can't have two containers listening on the same port at the host level.
+
+```shell
+docker container port <container> 80:80 ->  exposes the host port 80 and forwars traffic from that port into the port 80 of tha container.
+docker container port <container_name>   -> shows which ports are forwarding traffic to that container from the host into the container itself.
+docker container inspect --format "{{ .NetworkSettings.IPAddress }}" <container_name> -> retrieves the IP of the container.
+```
