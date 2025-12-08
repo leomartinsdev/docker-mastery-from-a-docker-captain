@@ -1,4 +1,4 @@
-#### Image
+### Image
 An image is the application we want to run. A container is an instance of that image running as a process.
 You can have many containers running off the same image.
 Docker's default image "registry" is calle Docker Hub.
@@ -33,7 +33,7 @@ docker container rm -f <container_id> -> forces the deletion of the container
 ```
 
 
-#### 23 - Assignment: Manage Multiple Containers
+### 23 - Assignment: Manage Multiple Containers
 ```shell
 docker container run -d --publish 8080:80 httpd
 docker container run -d --publish 80:80 nginx
@@ -47,14 +47,14 @@ docker container ls -a
 generated password for mysql = dQkCAxRjZVI52CK3iOhOYrnig3+56pU9
 ```
 
-#### 24 - Whats going on in Containers: CLI Process Monitoring
+### 24 - Whats going on in Containers: CLI Process Monitoring
 ```shell
 docker container top        -> process list in one container
 docker container inspect    -> details of one container config
 docker container stats      -> performance stats for all containers
 ```
 
-#### 26 - Getting a Shell Inside Containers: No Need for SSH
+### 26 - Getting a Shell Inside Containers: No Need for SSH
 ```shell
 docker container run -it    -> start new container interactively
 ex: docker container run -it --name proxy nginx bash
@@ -65,7 +65,7 @@ ex: docker container exec -it mysql bash
 exit -> exists the shell and stops the container
 ```
 
-#### 27 - Docker Networks: Concepts for Private and Public Comms in Containers
+### 27 - Docker Networks: Concepts for Private and Public Comms in Containers
 The ```-p``` exposes the port on your machine.
 For local dev/testing, networks usually "just work".
     - "Batteries Included, but removable" -> defauls work well in many cases, but easy to swap out parts to customize it.
@@ -85,4 +85,34 @@ You can have something like this:
 docker container port <container> 80:80 ->  exposes the host port 80 and forwars traffic from that port into the port 80 of tha container.
 docker container port <container_name>   -> shows which ports are forwarding traffic to that container from the host into the container itself.
 docker container inspect --format "{{ .NetworkSettings.IPAddress }}" <container_name> -> retrieves the IP of the container.
+```
+<br>
+
+### 29 - Docker Networks: CLI Management of Virtual Networks
+```--network host``` - Gains performance by skipping virtual networks but sacrifices security of container model
+```--network none``` - Removes eth0 and only leaves you with localhost interface in container
+
+```shell
+docker network ls   -> show networks
+docker network inspect <network_name> -> inspect a network
+docker network create --driver <network_name>  -> creates a network. If you dont specify driver, it creates the new VN with the bridge driver, which is the default.
+docker network connect          -> attach a network to container
+docker network disconnect       -> detach a network from container
+```
+<br>
+
+##### Command example to create a container with an already existing network
+```shell
+docker container run -d --name new_nginx --network my_app_net nginx
+docker network inspect my_app_net (to inspect)
+```
+
+##### Connect a container to a network
+```shell
+docker network connect <network_id> <container_id>
+```
+
+##### Disconnect a container to a network
+```shell
+docker network connect <network_id> <container_id>
 ```
