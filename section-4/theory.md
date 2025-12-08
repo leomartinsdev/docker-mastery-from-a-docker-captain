@@ -15,6 +15,8 @@ docker container run --publish 80:80 nginx
 ```shell
 -d - means "detach", so the container runs on the background.
 
+docker container start <container_name>    -> starts an existing container
+
 docker container ls     -> lists running containers
 docker ps               -> lists runing containers
 docker container ps -a  -> lists all containers (running and stopped)
@@ -31,7 +33,7 @@ docker container rm -f <container_id> -> forces the deletion of the container
 ```
 
 
-#### Assignment: Manage Multiple Containers
+#### 23 - Assignment: Manage Multiple Containers
 ```shell
 docker container run -d --publish 8080:80 httpd
 docker container run -d --publish 80:80 nginx
@@ -51,3 +53,15 @@ docker container top        -> process list in one container
 docker container inspect    -> details of one container config
 docker container stats      -> performance stats for all containers
 ```
+
+#### 26 - Getting a Shell Inside Containers: No Need for SSH
+```shell
+docker container run -it    -> start new container interactively
+ex: docker container run -it --name proxy nginx bash
+
+docker container exec -it <container_name> <program_to_run>  -> run additional command in existing and running container
+ex: docker container exec -it mysql bash
+
+exit -> exists the shell and stops the container
+```
+
