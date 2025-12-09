@@ -116,3 +116,11 @@ docker network connect <network_id> <container_id>
 ```shell
 docker network connect <network_id> <container_id>
 ```
+<br>
+
+### 30 - Docker Networks: DNS and how containers find each other
+DNS is the key to easy inter-container comms. You can't rely on IP addresses because its very dynamic.
+Docker DNS: docker daemon has a build-in DNS server that containers use by default.
+DNS Default Names: Docker defaults the hostname to the container's name, but you can also get aliases.
+Two contianers on a same network can talk to eachother using their names
+Example: ```docker container exec -it <container_1> ping <container_2>```
