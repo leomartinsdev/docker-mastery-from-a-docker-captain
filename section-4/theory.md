@@ -124,3 +124,36 @@ Docker DNS: docker daemon has a build-in DNS server that containers use by defau
 DNS Default Names: Docker defaults the hostname to the container's name, but you can also get aliases.
 Two contianers on a same network can talk to eachother using their names
 Example: ```docker container exec -it <container_1> ping <container_2>```
+
+<br>
+
+### 31 - Assignment: Using Container for CLI Testing
+```shell
+docker container run -it --name centos centos:7 bash
+docker container run -it --name ubuntu14 ubuntu:14.04 bash
+curl --version (ubuntu doesnt have curl)
+apt-get update && app-get install curl ( on ubuntu)
+docker container rm centos ubuntu14
+```
+
+Correção: the --rm when creating an container makes it be deleted after you exit it.
+
+### 34 - Assignment: DNS Round Robin Test
+Create a new Virtual Network (default bridge driver);
+Create two containers from elasticsearch image;
+    - docker run -e "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" -e "xpack.security.enabled=false" --network <your_network> -d --network-alias search elasticsearch:8.4.3
+Resarch and use -network-alias search when creating them to give them an additional DNS name to respond to;
+Run alpine nslook up search with --net to see the two containers list for the same DNS name;
+Run rockylinux/rockylinux:10 curl-s search:9200 with --net multiple times until you see both "name" fields show.
+
+```shell
+docker network create round-robin-test
+
+docker run -e "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" -e "xpack.security.enabled=false" --network round-robin-test -d --network-alias search elasticsearch:8.4.3
+
+docker run -e "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" -e "xpack.security.enabled=false" --network round-robin-test -d --network-alias search elasticsearch:8.4.3
+
+docker run --rm -it --network round-robin-test alpine nslookup search
+
+docker run --rm --network round-robin-test rockylinux/rockylinux:10 curl -s search:9200
+```
