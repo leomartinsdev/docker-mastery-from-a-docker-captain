@@ -17,3 +17,28 @@ docker image inspect <image_name>   -> returns a json metadata about the image
 ```
 
 We don't need to download layers we already have, and as we make changes to our images, they create more layers, and if we decide we want to have the same image as the base image for more layers, it only ever stores one copy of each layer. That saves up lots of space.
+
+<br>
+
+### 39 - Image Tagging and Pushing to Docker Hub
+The tag is not quite a version/branch. It's a pointer to a specific image commit.
+
+##### Retags an image. This changes the repository (name) of the image. You can specify tags as <image_repository>:<image_tag>
+```shell
+docker image tag <image_repository> <new_image_repository>
+```
+
+##### Log in into Docker Hub
+```shell
+docker login
+```
+
+##### Log out of Docker Hub
+```shell
+docker logout
+```
+
+##### Push an image to Docker Hub
+```shell
+docker push <repository_name>
+```
