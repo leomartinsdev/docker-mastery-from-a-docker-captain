@@ -49,6 +49,7 @@ docker push <repository_name>
 ```shell
 docker build -f some-dockerfile
 ```
+The ```-f``` specifies Dockerfile name/location
 
 Main parameters on a Dockerfile:
 - FROM - base image for the new image being built. Sets the foundation and initial environment upon all other instructions will run.
@@ -61,3 +62,14 @@ The proper way to log into a container is not to log into a logfile. Docker actu
 - EXPOSE - describe which ports your application is listening on.
 
 - CMD - specify default commands. Its a required parameter and its the final command that will be ran everytime you launch a new container from the image or everytime you restart a stopped container. Ex: "npm run start".
+
+### 41 - Building Images: Running Docker Builds
+```shell
+docker image build -t customnginx .
+```
+
+This is the modern, structured Docker command.
+Works exactly like the ```docker build``` command of the previous class.
+
+The ```t``` tags the image as customname:latest (Default tag)
+The ```.``` basically says to build the dockerfile in this directory.
