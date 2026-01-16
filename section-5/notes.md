@@ -42,3 +42,22 @@ docker logout
 ```shell
 docker push <repository_name>
 ```
+
+### 40 - Building Images: The Dockerfile Basics
+
+##### Build a Docker from Dockerfile
+```shell
+docker build -f some-dockerfile
+```
+
+Main parameters on a Dockerfile:
+- FROM - base image for the new image being built. Sets the foundation and initial environment upon all other instructions will run.
+
+- ENV - sets envinronment variables.
+
+- RUN - build commands to be executed. They're run top down. All the commands chained by a "&&" stays on the same layer, which saves time and space.
+The proper way to log into a container is not to log into a logfile. Docker actually handles all of our logging for us. We just have to make sure everything we want to be logged is spit out to /stdout and /sterr.
+
+- EXPOSE - describe which ports your application is listening on.
+
+- CMD - specify default commands. Its a required parameter and its the final command that will be ran everytime you launch a new container from the image or everytime you restart a stopped container. Ex: "npm run start".
