@@ -71,5 +71,15 @@ docker image build -t customnginx .
 This is the modern, structured Docker command.
 Works exactly like the ```docker build``` command of the previous class.
 
-The ```t``` tags the image as customname:latest (Default tag)
+The ```-t``` tags the image as customname:latest (Default tag)
 The ```.``` basically says to build the dockerfile in this directory.
+
+Its critically important for your sanity and time that you keep the things that you change the least at the top of the dockerfile and the things that you change the most at the bottom. This is because of how the layering works on docker.
+
+
+### 42 - Building Images: Extending Official Images
+When we use the FROM we inherit everything from the dockerfile we are "FROMing".
+
+```shell
+docker image build -t nginx-with-html .
+```
