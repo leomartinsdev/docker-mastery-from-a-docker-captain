@@ -83,3 +83,19 @@ When we use the FROM we inherit everything from the dockerfile we are "FROMing".
 ```shell
 docker image build -t nginx-with-html .
 ```
+
+### 43 - Assignment: Build Your Own Dockerfile and run Containers from it
+Expected result is website at http://localhost
+Tag and push to your Docker Hub Account
+Remove your image from local cache, run again from Hub.
+URL to the app: https://github.com/BretFisher/udemy-docker-mastery/tree/main/dockerfile-assignment-1
+
+```shell
+cd dockerfile-assignment-1
+docker build -t test .
+docker container run --rm 80:3000 test
+docker tag test lultramarmartins/testing-node-assignment
+docker push lultramarmartins/testing-node-assignment
+docker image rm lultramarmartins/testing-node-assignment
+docker container run --rm -p 80:3000 lultramarmartins/testing-node-assignment
+```
