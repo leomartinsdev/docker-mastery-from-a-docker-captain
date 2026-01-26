@@ -99,3 +99,24 @@ docker push lultramarmartins/testing-node-assignment
 docker image rm lultramarmartins/testing-node-assignment
 docker container run --rm -p 80:3000 lultramarmartins/testing-node-assignment
 ```
+
+### 44 - Using Prune to keep your Docker system clean:
+##### Clean up dandling images
+```shell
+docker image prune
+```
+
+##### Clean up everything you're not currently using
+```shell
+docker system prune
+```
+
+##### Remove all images you're not using
+```shell
+docker system prune -a
+```
+
+##### See space usage
+```shell
+docker system df
+```
