@@ -50,3 +50,27 @@ echo "is it me you're looking for" > testme.txt
 ```
 
 localhost/textme.txt -> contains the text "is it me you're looking for".
+
+### 52. Assignment: Database Upgrades with Named Volumes
+- Create a postgres container with named volume psql-data using version 16;
+- Use Docker Hub to learn VOLUME path and versions needed to run it;
+- Check logs, stop container;
+- Create a new postgres container with same named volume using 17;
+- Check logs. It should have only a couple of lines of startup logs because it doesn't have to do all the startup work.
+
+```shell
+docker container run --name postgres16 -e POSTGRES_PASSWORD=password -v postgres-db:/var/lib/postgresql/data postgres:16
+
+docker container logs postgres16
+docker container stop postgres16
+
+docker container ls -a
+
+docker container run --name postgres17 -e POSTGRES_PASSWORD=password -v postgres-db:/var/lib/postgresql/data postgres:17
+
+docker container logs postgres17
+```
+
+What I saw in the postgres17 logs: PostgreSQL Database directory appears to contain a database; Skipping initialization.
+
+So, that means it worked, they're using the same data volume.
