@@ -13,12 +13,13 @@ Two solutions to this problem:
 <br>
 
 ### 47 - Persistent Data: Data Volumes
-```VOLUME``` command in Dockerfile.
-Also override with ```docker run -v /path/in/container```
-Bypasses Union File System (UFS) and stores in alt location on host.
-Includes it's own management commands under ```docker volume```.
-Connect to none, one or multiple containers at once.
-Not subject to ```commit```, ```save```, or ```export``` commands.
+- ```VOLUME``` command in Dockerfile.
+
+Also override with ```docker run -v /path/in/container```;
+Bypasses Union File System (UFS) and stores in alt location on host;
+Includes it's own management commands under ```docker volume```;
+Connect to none, one or multiple containers at once;
+Not subject to ```commit```, ```save```, or ```export``` commands;
 By default they only have a unique ID, but you can assign name. Then it's a "named volume". Thats absolutely necessary to understand what is saved so you can connect new containers to that data.
 <br>
 
@@ -29,3 +30,23 @@ ex:
 docker container run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=True -v mysql-db:var/lib/mysql mysql
 ```
 <br>
+
+### 49 - Persistent Data: Bind Mounting
+Maps a host file or directory to a container file or directory.
+Basically just two locations pointing to the same file(s).
+Again, skips UFS, and host files overwrite any in container.
+Can't use in Dockerfile, must be at ```container run```.
+- ```... run -v //c/Users/username/stuff:/path/container``` (windows)
+- ```... run -v /Users/username/stuff:/path/container``` (unix)
+
+```shell
+cd section-5
+cd dockerfile-sample-2
+docker container run -d --name nginx -p 80:80 -v $(pwd):/usr/share/nginx/html nginx
+docker container exec -it nginx bash
+New-Item -ItemType File -Name testme.txt
+docker container exec -it nginx bash // testme.txt is here and I created it on a shell outside the container, so they're sharing the same location
+echo "is it me you're looking for" > testme.txt
+```
+
+localhost/textme.txt -> contains the text "is it me you're looking for".
