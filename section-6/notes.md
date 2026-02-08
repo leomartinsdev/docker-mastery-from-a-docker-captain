@@ -74,3 +74,22 @@ docker container logs postgres17
 What I saw in the postgres17 logs: PostgreSQL Database directory appears to contain a database; Skipping initialization.
 
 So, that means it worked, they're using the same data volume.
+
+
+### 53. Assignment: Edit Code Running in Containers with Bind Mounts
+- Use a Jekyll "Static Site Generator" to start a local web server;
+- Source Code is in the course repo under bindmount-sample-1;
+- We edit files with editor on our host using native tools;
+- Container detects changes with host files and updates web server;
+- Start container with ```docker run -p 80:4000 -v $(pwd):/site bretfisher/jekyll-serve```;
+- Refresh the browser to see changes;
+- Change the file in _posts\ and refresh browser to see changes;
+
+```shell
+cd bindmount-sample-1
+docker run -p 80:4000 -v $(pwd):/site bretfisher/jekyll-serve
+```
+
+Go to localhost
+Edit file
+Refresh browser -> changes.
